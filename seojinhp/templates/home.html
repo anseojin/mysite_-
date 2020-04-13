@@ -1,0 +1,34 @@
+{% load static %}
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'seojinhp/css/style.css' %}"/>
+</head>
+<body>
+    <header>
+        <h1>아기사자 뮤직박스</h1>
+    </header>
+    <main>
+        <div id="top"> <a href="{% url 'new' %}">I want to share!</a></div>
+
+        <div class="container">
+            {% for post in posts_list %}
+            <div class="box">
+                <div class="section">
+                    <h3> {{ post.title }} </h3>
+                     {{ post.pub_date }} <br>
+                     {{ post.body|linebreaks }} <br>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+        <aside>
+            <div id="A">"음악은 국가가 허락한 유일한 마약"-LionQueen</div>
+            <div id="B">오늘의 신곡 : 아로하 - 조정석 </div>
+         </aside>
+        
+    </main>
+    <footer>
+        <h4>LIKE LION PLAYLIST </h4>
+        <h5>TODAY IT'S SUNNY!</h5>
+    </footer>
+</body>

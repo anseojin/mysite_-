@@ -1,0 +1,26 @@
+{% load static %}
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'seojinhp/css/style.css' %}"/>
+</head>
+<body>
+    <header>
+<h1> 여러분이 나누고 싶은 노래를 마음껏 적어주세요! </h1>
+    </header>
+    <main>
+        <div id="top"> <a href="{% url 'home' %}">go back</a></div>
+        <div id="container">
+            <form method="POST" class="post-form"> {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Submit:)</button>
+            </form>
+        </div>
+        <aside>
+            <div id="A">"음악은 국가가 허락한 유일한 마약"-LionQueen</div>
+            <div id="B">오늘의 신곡 : 아로하 - 조정석 </div>    </aside>
+        </main>
+    <footer>
+        <h4>LIKE LION PLAYLIST </h4>
+        <h5>TODAY IT'S SUNNY!</h5>
+    </footer>
+</body>
