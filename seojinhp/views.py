@@ -2,11 +2,12 @@ from django.shortcuts import render, redirect
 from django.utils import timezone
 from .models import Content
 from .forms import ContentForm
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
 def home(request):
     posts = Content.objects.all
-    return render(request, 'home.html', {'posts_list': posts})
+    return render(request, 'seojinhp/home.html', {'posts_list': posts})
 
 def new(request):
 
@@ -21,4 +22,27 @@ def new(request):
     else:
         form = ContentForm()
 
-    return render(request, 'new.html', {'form': form})
+    return render(request, 'seojinhp/new.html', {'form': form})
+
+def detail(request, pk):
+    post = get_object_or_404(Content, pk=pk)
+    return render(request,'seojinhp/detail.html', {'post':post})
+
+def edit(request,pk):
+    post = get_object_or_404(Content, pk=pk)
+    if request.method == "POST":
+        form = ContentForm(request.POST, instance=post)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.published_date = timezone.now
+            post.save()
+            return redirect('detail', pk=post.pk)
+    else:
+        form = ContentForm(instance=post)
+    return render(request,'seojinhp/edit.html', {'form': form})
+
+def delete(request, pk):
+    post = get_object_or_404(Content, pk=pk)
+    post.delete()
+    return redirect('home')
